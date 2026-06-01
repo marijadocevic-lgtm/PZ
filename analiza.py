@@ -48,3 +48,53 @@ plt.savefig("karp_flatt.png")
 
 print("\nGrafi shranjeni kot speedup.png in karp_flatt.png")
 
+#  PRIMERJAVA OBEH METOD
+
+# Povprečni časi  metode (Allgather)
+allgather_avg = {
+    1: avg[1],
+    2: avg[2],
+    4: avg[4],
+    8: avg[8]
+}
+
+# Povprečni časi  metode (Scatter/Bcast/Gather) 
+scatter_avg = {
+    1: 1.238034,
+    2: 0.662796,
+    4: 0.428808,
+    8: 0.314208
+}
+
+#  Graf primerjave časov 
+plt.figure()
+p = [1, 2, 4, 8]
+
+plt.plot(p, [allgather_avg[x] for x in p], marker='o', label='Allgather')
+plt.plot(p, [scatter_avg[x] for x in p], marker='o', label='Scatter/Bcast/Gather')
+
+plt.xlabel("Število procesov (p)")
+plt.ylabel("Čas izvajanja [s]")
+plt.title("Primerjava časov izvajanja obeh MPI pristopov")
+plt.grid(True)
+plt.legend()
+plt.savefig("primerjava_casov.png")
+
+print("Graf primerjave shranjen kot primerjava_casov.png")
+
+#  Graf primerjave pospeška 
+speedup_allgather = {p: allgather_avg[1] / allgather_avg[p] for p in p}
+speedup_scatter = {p: scatter_avg[1] / scatter_avg[p] for p in p}
+
+plt.figure()
+plt.plot(p, [speedup_allgather[x] for x in p], marker='o', label='Allgather speedup')
+plt.plot(p, [speedup_scatter[x] for x in p], marker='o', label='Scatter/Bcast/Gather speedup')
+
+plt.xlabel("Število procesov (p)")
+plt.ylabel("Pospešek S(p)")
+plt.title("Primerjava pospeška obeh MPI pristopov")
+plt.grid(True)
+plt.legend()
+plt.savefig("primerjava_speedup.png")
+
+print("Graf pospeška shranjen kot primerjava_speedup.png")
