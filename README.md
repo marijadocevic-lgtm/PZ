@@ -52,6 +52,12 @@ done
 Enako je bilo uporabljeno tudi za jacobi.
 
 ## 5. Povzetek rezultatov
+## Diagrami
+
+![Primerjava časov](primerjava_casov.png)
+![Primerjava pospeška](primerjava_speedup.png)
+![Speedup](speedup.png)
+![Karp–Flatt](karp_flatt.png)
 
 ### Allgather pristop (jacobi.c)
 - Čas izvajanja se povečuje z večanjem števila procesov.
